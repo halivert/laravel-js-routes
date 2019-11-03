@@ -1,5 +1,5 @@
 {
-	"name": "hali/laravel-create-js-routes",
+	"name": "hali/laravel-js-routes",
 	"description": "Command for use Laravel routes in JS",
 	"type": "library",
 	"license": "MIT",
