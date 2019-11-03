@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Hali\CreateJSRoutes\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
 
-class CreateJSRoutes extends Command
+class CreateJSRoutesCommand extends Command
 {
     /**
      * The name and signature of the console command.
