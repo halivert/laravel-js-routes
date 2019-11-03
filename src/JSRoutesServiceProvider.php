@@ -1,10 +1,10 @@
 <?php
 
-namespace Hali\CreateJSRoutes;
+namespace Hali\JSRoutes;
 
 use Illuminate\Support\ServiceProvider;
 
-class CreateJSRoutesServiceProvider extends ServiceProvider
+class JSRoutesServiceProvider extends ServiceProvider
 {
     public function register()
     {

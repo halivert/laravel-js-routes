@@ -12,7 +12,7 @@
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Hali\\CreateJSRoutes\\CreateJSRoutesServiceProvider"
+				"Hali\\JSRoutes\\JSRoutesServiceProvider"
 			]
 		}
 	},

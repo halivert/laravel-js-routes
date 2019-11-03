@@ -1,6 +1,6 @@
 <?php
 
-namespace Hali\CreateJSRoutes\Console;
+namespace Hali\JSRoutes\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
