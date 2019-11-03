@@ -1,0 +1,15 @@
+{
+    "name": "hali/laravel-create-js-routes",
+    "description": "Command for use Laravel routes in JS",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Halí V.",
+            "email": "halivelazquez@outlook.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^6.4"
+    }
+}
