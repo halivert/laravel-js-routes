@@ -11,7 +11,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Hali\\JSRoutes\\": "src/"
+			"Hali\\": "src/"
 		}
 	},
 	"extra": {
