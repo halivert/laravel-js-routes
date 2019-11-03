@@ -9,6 +9,11 @@
 			"email": "halivelazquez@outlook.com"
 		}
 	],
+	"autoload": {
+		"psr-4": {
+			"Hali\\JSRoutes\\": "src/"
+		}
+	},
 	"extra": {
 		"laravel": {
 			"providers": [
