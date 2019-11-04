@@ -1,6 +1,6 @@
 <?php
 
-namespace Hali\JSRoutes;
+namespace Halivert\JSRoutes;
 
 use Illuminate\Support\ServiceProvider;
 

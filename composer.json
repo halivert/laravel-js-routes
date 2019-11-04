@@ -1,5 +1,5 @@
 {
-	"name": "hali/laravel-js-routes",
+	"name": "halivert/laravel-js-routes",
 	"description": "Command for use Laravel routes in JS",
 	"type": "library",
 	"license": "MIT",
@@ -11,13 +11,13 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Hali\\": "src/"
+			"Halivert\\": "src/"
 		}
 	},
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Hali\\JSRoutes\\JSRoutesServiceProvider"
+				"Halivert\\JSRoutes\\JSRoutesServiceProvider"
 			]
 		}
 	},

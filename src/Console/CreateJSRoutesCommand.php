@@ -1,6 +1,6 @@
 <?php
 
-namespace Hali\JSRoutes\Console;
+namespace Halivert\JSRoutes\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
