@@ -42,11 +42,11 @@ class CreateJSRoutesCommand extends Command
     {
         $routes = collect(
             Route::getRoutes()->getRoutesByName()
-        )->filter(function ($e, $k) {
-            return $this->includeRoute($e, $k);
-        })->map(function ($e) {
+        )->filter(function ($route, $key) {
+            return $this->includeRoute($route, $key);
+        })->map(function ($route) {
             return [
-                "uri" => $e->uri
+                "uri" => $route->uri
             ];
         });
 
@@ -97,14 +97,9 @@ class CreateJSRoutesCommand extends Command
         return true;
     }
 
-    private function includeRoute($value, $routeName)
+    private function includeRoute($route, $routeName)
     {
         $valid = $routeName !== 'telescope';
-        $valid &= (
-            in_array('GET', $value->methods) ||
-            $routeName === 'read-notifications.update'
-        );
-
         return $valid;
     }
 
