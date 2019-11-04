@@ -10,7 +10,7 @@ class CreateJSRoutesCommandTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            'Halivert\JSRoutes\JSRoutesServiceProvider'
+            'Halivert\JSRoutes\Tests\Stubs\Providers\JSRoutesServiceProviderTest'
         ];
     }
 
@@ -54,12 +54,13 @@ class CreateJSRoutesCommandTest extends TestCase
 
     public function test_can_create_file()
     {
-        $command = "route:tojs -p ./ -m GET,PATCH -w boss.bye";
-        $result = "routes.js created";
+		$name = config('jsroutes.name', 'routes.js');
+        $command = "route:tojs";
+        $result = $name . " created";
 
-        if (file_exists(realpath("./routes.js"))) {
+        if (file_exists(realpath("./" . $name))) {
             $this->artisan($command)->expectsQuestion(
-                "The [routes.js] file already exists. Do you want to replace it?",
+                "The [" . $name . "] file already exists. Do you want to replace it?",
                 "yes"
             )->expectsOutput($result)->assertExitCode(0);
         } else {

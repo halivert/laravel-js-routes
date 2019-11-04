@@ -15,9 +15,9 @@ class CreateJSRoutesCommand extends Command
     protected $signature = "route:tojs
 		{ --name=routes.js : Name of the output file. }
 		{ --p|path= : Path of the output file. }
-		{ --w|whitelist= : List of comma separated route names to include (overrides ignore and methods). }
-		{ --i|ignore=telescope : List of comma separated route names to ignore (overrides methods). }
-		{ --m|methods=GET : List of comma separated methods accepted by filter. Empty for include all methods. }
+		{ --i|include= : List of comma separated route names to include (overrides exclude and methods). }
+		{ --e|exclude= : List of comma separated route names to exclude (overrides methods). }
+		{ --m|methods= : List of comma separated methods accepted by filter. Empty for include all methods. }
 		{ --f|force : Overwrite existing routes by default. }";
 
     /**
@@ -25,7 +25,7 @@ class CreateJSRoutesCommand extends Command
      *
      * @var string
      */
-    protected $description = "Create object with routes, and a function for its JS use";
+    protected $description = "Create object with routes, and a function for its JS use. Uses key from configuration file 'jsroutes'.";
 
     /**
      * Create a new command instance.
@@ -50,7 +50,7 @@ class CreateJSRoutesCommand extends Command
             return $this->includeRoute($route, $key);
         })->map(function ($route) {
             return [
-                "uri" => $route->uri
+                'uri' => $route->uri
             ];
         });
 
@@ -60,9 +60,9 @@ class CreateJSRoutesCommand extends Command
         $content .= json_encode($routes, $jsonFlags);
         $content .= ";\n\n";
 
-        $content .= file_get_contents(__DIR__ . "/../assets/js/routeFunction.js");
+        $content .= file_get_contents(__DIR__ . '/../assets/js/routeFunction.js');
 
-        $fileName = $this->option("name");
+        $fileName = config('jsroutes.name', $this->option('name'));
         if ($this->createFile($fileName, $content)) {
             $this->info($fileName . " created");
         }
@@ -72,14 +72,14 @@ class CreateJSRoutesCommand extends Command
     {
         if (
             file_exists($file = $this->getJSPath($fileName)) &&
-            !$this->option("force")
+            !$this->option('force')
         ) {
             if (
                 !$this->confirm(
-                    "The [" . $fileName . "] file already exists. Do you want to replace it?"
+                    'The [' . $fileName . '] file already exists. Do you want to replace it?'
                 )
             ) {
-                $this->error("Error");
+                $this->error('Error');
                 return false;
             }
         }
@@ -90,21 +90,26 @@ class CreateJSRoutesCommand extends Command
 
     private function includeRoute($route, $routeName)
     {
-        $whitelist = explode(",", $this->option("whitelist"));
+        $include = config('jsroutes.include', explode(',', $this->option('include')));
 
-        if (in_array($routeName, $whitelist)) {
+        if (in_array($routeName, $include)) {
             return true;
         }
 
-        $ignore = explode(",", $this->option("ignore"));
+        $exclude = config('jsroutes.exclude', explode(',', $this->option('exclude')));
 
-        if (in_array($routeName, $ignore)) {
+        if (in_array($routeName, $exclude)) {
             return false;
         }
 
-        $methods = $this->option("methods");
+        if (config('jsroutes.methods') !== null) {
+            $methods = implode(',', config('jsroutes.methods'));
+        } else {
+            $methods = $this->option('methods');
+        }
+
         $valid = empty($methods);
-        foreach (explode(",", $methods) as $method) {
+        foreach (explode(',', $methods) as $method) {
             $valid |= in_array($method, $route->methods);
         }
 
@@ -113,7 +118,7 @@ class CreateJSRoutesCommand extends Command
 
     public function getJSPath($fileName)
     {
-        $path = $this->option("path") ?? config('js.path')[0] ?? resource_path('js');
+        $path = config('jsroutes.path', $this->option('path') ?? config('js.path')[0] ?? resource_path('js'));
         return implode(DIRECTORY_SEPARATOR, [$path, $fileName]);
     }
 }
