@@ -54,7 +54,7 @@ class CreateJSRoutesCommandTest extends TestCase
 
     public function test_can_create_file()
     {
-        $command = "route:tojs -p ./ -m GET,PATCH";
+        $command = "route:tojs -p ./ -m GET,PATCH -w boss.bye";
         $result = "routes.js created";
 
         if (file_exists(realpath("./routes.js"))) {

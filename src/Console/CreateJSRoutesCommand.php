@@ -15,7 +15,8 @@ class CreateJSRoutesCommand extends Command
     protected $signature = "route:tojs
 		{ --name=routes.js : Name of the output file. }
 		{ --p|path= : Path of the output file. }
-		{ --i|ignore=telescope : List of comma separated route names to ignore (override methods). }
+		{ --w|whitelist= : List of comma separated route names to include (overrides ignore and methods). }
+		{ --i|ignore=telescope : List of comma separated route names to ignore (overrides methods). }
 		{ --m|methods=GET : List of comma separated methods accepted by filter. Empty for include all methods. }
 		{ --f|force : Overwrite existing routes by default. }";
 
@@ -53,7 +54,7 @@ class CreateJSRoutesCommand extends Command
             ];
         });
 
-		$jsonFlags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+        $jsonFlags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
 
         $content = "var routes = ";
         $content .= json_encode($routes, $jsonFlags);
@@ -89,18 +90,23 @@ class CreateJSRoutesCommand extends Command
 
     private function includeRoute($route, $routeName)
     {
-        $valid = true;
-        foreach (explode(",", $this->option("ignore")) as $toIgnore) {
-            $valid &= $routeName !== $toIgnore;
+        $whitelist = explode(",", $this->option("whitelist"));
+
+        if (in_array($routeName, $whitelist)) {
+            return true;
+        }
+
+        $ignore = explode(",", $this->option("ignore"));
+
+        if (in_array($routeName, $ignore)) {
+            return false;
         }
 
         $methods = $this->option("methods");
-        $atLeastOneMethod = empty($methods);
+        $valid = empty($methods);
         foreach (explode(",", $methods) as $method) {
-            $atLeastOneMethod |= in_array($method, $route->methods);
+            $valid |= in_array($method, $route->methods);
         }
-
-        $valid &= $atLeastOneMethod;
 
         return $valid;
     }
