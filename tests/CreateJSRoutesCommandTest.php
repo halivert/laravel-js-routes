@@ -51,12 +51,12 @@ class CreateJSRoutesCommandTest extends TestCase
             return 'goodbye world';
         })->name('multiparam');
 
-        $app['config']->set('jsroutes.path', './');
+        $app['config']->set('app.jsroutes.path', './');
     }
 
     public function test_can_create_file()
     {
-		$name = config('jsroutes.name', 'routes.js');
+		$name = config('app.jsroutes.name', 'routes.js');
         $command = "route:tojs";
         $result = $name . " created";
 

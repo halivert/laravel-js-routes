@@ -8,7 +8,7 @@ class JSRoutesServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/jsroutes.php', 'jsroutes');
+        $this->mergeConfigFrom(__DIR__ . '/config/jsroutes.php', 'app.jsroutes');
 
         $this->commands([
             Console\CreateJSRoutesCommand::class

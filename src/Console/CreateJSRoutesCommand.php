@@ -62,7 +62,7 @@ class CreateJSRoutesCommand extends Command
 
         $content .= file_get_contents(__DIR__ . '/../assets/js/routeFunction.js');
 
-        $fileName = config('jsroutes.name', $this->option('name'));
+        $fileName = config('app.jsroutes.name', $this->option('name'));
         if ($this->createFile($fileName, $content)) {
             $this->info($fileName . " created");
         }
@@ -90,20 +90,20 @@ class CreateJSRoutesCommand extends Command
 
     private function includeRoute($route, $routeName)
     {
-        $include = config('jsroutes.include', explode(',', $this->option('include')));
+        $include = config('app.jsroutes.include', explode(',', $this->option('include')));
 
         if (in_array($routeName, $include)) {
             return true;
         }
 
-        $exclude = config('jsroutes.exclude', explode(',', $this->option('exclude')));
+        $exclude = config('app.jsroutes.exclude', explode(',', $this->option('exclude')));
 
         if (in_array($routeName, $exclude)) {
             return false;
         }
 
-        if (config('jsroutes.methods') !== null) {
-            $methods = implode(',', config('jsroutes.methods'));
+        if (config('app.jsroutes.methods') !== null) {
+            $methods = implode(',', config('app.jsroutes.methods'));
         } else {
             $methods = $this->option('methods');
         }
@@ -118,7 +118,7 @@ class CreateJSRoutesCommand extends Command
 
     public function getJSPath($fileName)
     {
-        $path = config('jsroutes.path', $this->option('path') ?? config('js.path')[0] ?? resource_path('js'));
+        $path = config('app.jsroutes.path', $this->option('path') ?? config('js.path')[0] ?? resource_path('js'));
         return implode(DIRECTORY_SEPARATOR, [$path, $fileName]);
     }
 }
