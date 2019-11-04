@@ -50,6 +50,8 @@ class CreateJSRoutesCommandTest extends TestCase
         $app['router']->get('multi/{id}/param/{id2}/url/{id}', function () {
             return 'goodbye world';
         })->name('multiparam');
+
+        $app['config']->set('jsroutes.path', './');
     }
 
     public function test_can_create_file()
