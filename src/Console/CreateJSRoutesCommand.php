@@ -12,16 +12,19 @@ class CreateJSRoutesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'create:routes
-		{ --name=routes.js : Name of created file }
-		{--force : Overwrite existing routes by default }';
+    protected $signature = "create:routes
+		{ --name=routes.js : Name of the output file. }
+		{ --p|path= : Path of the output file. }
+		{ --i|ignore=telescope : List of comma separated route names to ignore (override methods). }
+		{ --m|methods=GET : List of comma separated methods accepted by filter. Empty for include all methods. }
+		{ --f|force : Overwrite existing routes by default. }";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create object with routes, and a function for its JS use';
+    protected $description = "Create object with routes, and a function for its JS use";
 
     /**
      * Create a new command instance.
@@ -50,30 +53,17 @@ class CreateJSRoutesCommand extends Command
             ];
         });
 
+		$jsonFlags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+
         $content = "var routes = ";
-        $content .= json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        $content .= json_encode($routes, $jsonFlags);
         $content .= ";\n\n";
 
-        $content .= "const route = (routeName, params = []) => {\n";
-        $content .= "	var _route = routes[routeName];\n";
-        $content .= "	if (_route == null) {\n";
-        $content .= "		throw \"Requested route doesn't exist\";\n";
-        $content .= "	}\n";
-        $content .= "	var uri = _route.uri;\n";
-        $content .= "	for (var i = 0; i < params.length; i++) {\n";
-        $content .= "		uri = uri.replace(/{[\w]+}/, params[i]);\n";
-        $content .= "	}\n";
-        $content .= "	if (uri.includes(\"}\")) {\n";
-        $content .= "		throw \"Missing parameters\";\n";
-        $content .= "	}\n";
-        $content .= "	return '/' + uri;\n";
-        $content .= "}\n";
-
-        $content .= "\nexport { route };";
+        $content .= file_get_contents(__DIR__ . "/../assets/js/routeFunction.js");
 
         $fileName = $this->option("name");
         if ($this->createFile($fileName, $content)) {
-            $this->info("{$fileName} created");
+            $this->info($fileName . " created");
         }
     }
 
@@ -81,14 +71,14 @@ class CreateJSRoutesCommand extends Command
     {
         if (
             file_exists($file = $this->getJSPath($fileName)) &&
-            !$this->option('force')
+            !$this->option("force")
         ) {
             if (
                 !$this->confirm(
-                    "The [{$fileName}] view already exists. Do you want to replace it?"
+                    "The [" . $fileName . "] file already exists. Do you want to replace it?"
                 )
             ) {
-                $this->error('Error');
+                $this->error("Error");
                 return false;
             }
         }
@@ -99,15 +89,25 @@ class CreateJSRoutesCommand extends Command
 
     private function includeRoute($route, $routeName)
     {
-        $valid = $routeName !== 'telescope';
+        $valid = true;
+        foreach (explode(",", $this->option("ignore")) as $toIgnore) {
+            $valid &= $routeName !== $toIgnore;
+        }
+
+        $methods = $this->option("methods");
+        $atLeastOneMethod = empty($methods);
+        foreach (explode(",", $methods) as $method) {
+            $atLeastOneMethod |= in_array($method, $route->methods);
+        }
+
+        $valid &= $atLeastOneMethod;
+
         return $valid;
     }
 
-    public function getJSPath($path)
+    public function getJSPath($fileName)
     {
-        return implode(
-            DIRECTORY_SEPARATOR,
-            [config('js.path')[0] ?? resource_path('js'), $path]
-        );
+        $path = $this->option("path") ?? config('js.path')[0] ?? resource_path('js');
+        return implode(DIRECTORY_SEPARATOR, [$path, $fileName]);
     }
 }
