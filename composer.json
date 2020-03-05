@@ -27,10 +27,10 @@
 		}
 	},
 	"require": {
-		"laravel/framework": "^5|^6"
+		"laravel/framework": "^7"
 	},
 	"require-dev": {
-		"orchestra/testbench": "^4.3"
+		"orchestra/testbench": "^5.0"
 	},
 	"config": {
 		"sort-packages": true

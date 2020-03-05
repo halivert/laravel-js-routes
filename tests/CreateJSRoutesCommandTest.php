@@ -56,7 +56,7 @@ class CreateJSRoutesCommandTest extends TestCase
 
     public function test_can_create_file()
     {
-		$name = config('app.jsroutes.name', 'routes.js');
+        $name = config('app.jsroutes.name', 'routes.js');
         $command = "route:tojs";
         $result = $name . " created";
 
