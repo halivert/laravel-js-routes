@@ -56,7 +56,7 @@ class CreateJSRoutesCommand extends Command
 
         $jsonFlags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
 
-        $content = "var routes = ";
+        $content = "const routes = ";
         $content .= json_encode($routes, $jsonFlags);
         $content .= ";\n\n";
 
