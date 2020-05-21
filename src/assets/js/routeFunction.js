@@ -1,24 +1,36 @@
 const route = (routeName, params = []) => {
-  var _route = routes[routeName];
-  if (_route == null) {
-    throw "Requested route doesn't exist";
-  }
+  const _route = routes[routeName];
+  if (_route == null) throw "Requested route doesn't exist";
 
   var uri = _route.uri;
 
+  const matches = uri.match(/{[\w]+}/g);
+  const requiredParametersCount = matches.length;
+
   if (params instanceof Array) {
-    params.forEach(param => {
-      uri = uri.replace(/{[\w]+}/, param);
-    });
+    if (params.length < requiredParametersCount) throw "Missing parameters";
+
+    for (var i = 0; i < matches.length; i++)
+      uri = uri.replace(/{[\w]+}/, params.shift());
+
+    for (var i = 0; i < params.length; i++)
+      uri += (i ? "&" : "?") + params[i] + "=" + params[i];
   } else if (params instanceof Object) {
-    Object.keys(params).forEach(key => {
-      uri = uri.replace(new RegExp("{" + key + "}", "g"), params[key]);
+    var extraParams = matches.reduce((ac, match) => {
+      var key = match.substring(1, match.length - 1);
+      if (params.hasOwnProperty(key)) {
+        uri = uri.replace(new RegExp(match, "g"), params[key]);
+        delete ac[key];
+      }
+      return ac;
+    }, params);
+
+    Object.keys(extraParams).forEach((key, i) => {
+      uri += (i ? "&" : "?") + key + "=" + extraParams[key];
     });
   }
 
-  if (uri.includes("}")) {
-    throw "Missing parameters";
-  }
+  if (uri.includes("}")) throw "Missing parameters";
 
   return "/" + uri;
 };
