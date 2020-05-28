@@ -4,13 +4,13 @@ const route = (routeName, params = []) => {
 
   var uri = _route.uri;
 
-  const matches = uri.match(/{[\w]+}/g);
+  const matches = uri.match(/{[\w]+}/g) || [];
   const requiredParametersCount = matches.length;
 
   if (params instanceof Array) {
     if (params.length < requiredParametersCount) throw "Missing parameters";
 
-    for (var i = 0; i < matches.length; i++)
+    for (var i = 0; i < requiredParametersCount; i++)
       uri = uri.replace(/{[\w]+}/, params.shift());
 
     for (var i = 0; i < params.length; i++)

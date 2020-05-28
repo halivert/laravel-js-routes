@@ -16,6 +16,10 @@ class CreateJSRoutesCommandTest extends TestCase
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['router']->get('get', ['as' => 'get', 'uses' => function () {
+            return 'hello world';
+        }]);
+
         $app['router']->get('get/{id}', ['as' => 'hi', 'uses' => function () {
             return 'hello world';
         }]);
