@@ -2,7 +2,7 @@
 
 Command for use Laravel routes in JS
 
-### Usage:
+## Usage:
 
 ```shell
 composer require halivert/laravel-js-routes
@@ -28,3 +28,6 @@ import { route } from "./routes.js";
 
 And voila! you can have the `route` function, the first parameter is the route
 name (same as in laravel) and the second is an array of parameters.
+
+## License
+[MIT](https://github.com/halivert/laravel-js-routes/blob/master/LICENSE)
