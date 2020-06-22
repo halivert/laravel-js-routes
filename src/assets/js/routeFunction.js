@@ -2,7 +2,7 @@ const route = (routeName, params = []) => {
   const _route = routes[routeName];
   if (_route == null) throw "Requested route doesn't exist";
 
-  var uri = _route.uri;
+  let uri = _route.uri;
 
   const matches = uri.match(/{[\w]+}/g) || [];
   const requiredParametersCount = matches.length;
@@ -10,14 +10,14 @@ const route = (routeName, params = []) => {
   if (params instanceof Array) {
     if (params.length < requiredParametersCount) throw "Missing parameters";
 
-    for (var i = 0; i < requiredParametersCount; i++)
+    for (let i = 0; i < requiredParametersCount; i++)
       uri = uri.replace(/{[\w]+}/, params.shift());
 
-    for (var i = 0; i < params.length; i++)
+    for (let i = 0; i < params.length; i++)
       uri += (i ? "&" : "?") + params[i] + "=" + params[i];
   } else if (params instanceof Object) {
-    var extraParams = matches.reduce((ac, match) => {
-      var key = match.substring(1, match.length - 1);
+    let extraParams = matches.reduce((ac, match) => {
+      let key = match.substring(1, match.length - 1);
       if (params.hasOwnProperty(key)) {
         uri = uri.replace(new RegExp(match, "g"), params[key]);
         delete ac[key];

@@ -1,6 +1,5 @@
 ---
 layout: repo
-github_url: https://github.com/halivert/laravel-js-routes
 title: "Rutas Laravel en JS"
 description: >-
     Paquete composer para utilizar rutas de Laravel en archivos JS con
