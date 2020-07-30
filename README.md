@@ -20,6 +20,8 @@ Add the resource to webpack.mix.js:
 mix.js("resources/js/routes", "public/js");
 ```
 
+If you want to use absolute urls, you need to have `MIX_APP_URL` .env var
+
 And to use it, you need to import it
 
 ```js
@@ -27,7 +29,8 @@ import { route } from "./routes.js";
 ```
 
 And voila! you can have the `route` function, the first parameter is the route
-name (same as in laravel) and the second is an array of parameters.
+name (same as in laravel), the second is an array of parameters or an object,
+and the third is if you want to use absolute paths, by default true.
 
 ## License
 [MIT](https://github.com/halivert/laravel-js-routes/blob/master/LICENSE)

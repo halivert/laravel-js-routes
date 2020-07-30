@@ -1,4 +1,4 @@
-const route = (routeName, params = []) => {
+const route = (routeName, params = [], absolute = true) => {
   const _route = routes[routeName];
   if (_route == null) throw "Requested route doesn't exist";
 
@@ -32,6 +32,8 @@ const route = (routeName, params = []) => {
 
   if (uri.includes("}")) throw "Missing parameters";
 
+  if (absolute && process.env.MIX_APP_URL)
+    return process.env.MIX_APP_URL + "/" + uri;
   return "/" + uri;
 };
 
