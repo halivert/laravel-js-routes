@@ -31,3 +31,7 @@ name (same as in laravel) and the second is an array of parameters.
 
 ## License
 [MIT](https://github.com/halivert/laravel-js-routes/blob/master/LICENSE)
+
+## Contributing
+
+Pull requests and issues are welcome.
