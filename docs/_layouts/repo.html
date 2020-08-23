@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es-MX" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="stylesheet" href="{{ site.assets }}/css/solarized.css" />
+
+    <link
+      rel="stylesheet"
+      href="{{ site.assets }}/css/halivert-layout.css"
+    />
+
+    <link rel="stylesheet" href="{{ site.assets }}/css/halivert.css" />
+    <link rel="stylesheet" href="{{ site.assets }}/css/halivert-dark.css" />
+
+    <link rel="stylesheet" href="{{ site.assets }}/css/fa.min.css"/>
+
+    {%-
+      assign gistTheme = "https://cdn.rawgit.com"
+        | append: "/lonekorean/gist-syntax-themes/b737b139/stylesheets"
+        | append: "/solarized-dark.css"
+    -%}
+
+    <link rel="stylesheet" href="{{ gistTheme }}" type="text/css"/>
+
+    <meta name="telegram:channel" content="@halivertsblog" />
+
+    <meta name="monetization" content="$ilp.uphold.com/yJJL4YrpRMQi">
+
+    <script src="https://unpkg.com/turbolinks" defer></script>
+    <script src="{{ site.assets }}/js/main.js"></script>
+    <script src="{{ site.assets }}/js/nav.js" defer></script>
+
+    <title>{{ site.title }}</title>
+
+    {% seo title=false %}
+    {% if site.has_math %}
+      {% include katex.html %}
+    {% elsif site.has_instant_view %}
+      <meta property="has_instant_view" />
+    {% endif %}
+  </head>
+
+  <body class="has-background-light">
+    <nav class="repo fixed-top-bar">
+      <button
+        id="theme-switcher-corner"
+        class="button theme-switcher is-invisible"
+        onclick="changeTheme('theme-switcher-corner')"
+        data-turbolinks-permanent
+        style="border-radius: 0"
+      >
+        <span class="icon">
+          <i class="fas" aria-hidden="true"></i>
+        </span>
+      </button>
+
+      <a
+        href="{{ site.github.repository_url }}"
+        class="button github"
+        style="border-radius: 0"
+      >
+        <span>Ver en github</span>
+        <span class="icon">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </span>
+      </a>
+    </nav>
+
+    <main class="is-size-5">
+      <section class="hero is-primary repo">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title is-2">{{ site.title }}</h1>
+            <h2 class="subtitle">{{ site.description }}</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container content">
+          {{ content }}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

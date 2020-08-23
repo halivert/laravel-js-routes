@@ -1,9 +1,5 @@
 ---
 layout: repo
-title: "Rutas Laravel en JS"
-description: >-
-    Paquete composer para utilizar rutas de Laravel en archivos JS con
-    un comando.
 ---
 
 ## Inicio rápido
