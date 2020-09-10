@@ -20,6 +20,13 @@ Add the resource to webpack.mix.js:
 mix.js("resources/js/routes", "public/js");
 ```
 
+Or add route function to bootstrap.js as stated in #1 by @clandestine8
+
+```js
+window.route = require('./routes.js').route;
+// You can't use absolute routes with this method.
+```
+
 If you want to use absolute urls, you need to have `MIX_APP_URL` .env var
 
 And to use it, you need to import it
