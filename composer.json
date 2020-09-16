@@ -1,40 +1,38 @@
 {
-	"name": "halivert/laravel-js-routes",
-	"description": "Command for use Laravel routes in JS",
-	"type": "library",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Halí V.",
-			"email": "halivelazquez@outlook.com"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Halivert\\JSRoutes\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Halivert\\JSRoutes\\Tests\\": "tests/"
-		}
-	},
-	"extra": {
-		"laravel": {
-			"providers": [
-				"Halivert\\JSRoutes\\JSRoutesServiceProvider"
-			]
-		}
-	},
-	"require": {
-		"laravel/framework": "^7"
-	},
-	"require-dev": {
-		"orchestra/testbench": "^5.0"
-	},
-	"config": {
-		"sort-packages": true
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true
+    "name": "halivert/laravel-js-routes",
+    "description": "Command for use Laravel routes in JS",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Halí V.",
+            "email": "halivelazquez@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Halivert\\JSRoutes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Halivert\\JSRoutes\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["Halivert\\JSRoutes\\JSRoutesServiceProvider"]
+        }
+    },
+    "require": {
+        "laravel/framework": "^8"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

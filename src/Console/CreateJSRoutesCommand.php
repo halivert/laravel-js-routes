@@ -3,7 +3,6 @@
 namespace Halivert\JSRoutes\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Route;
 
 class CreateJSRoutesCommand extends Command
 {
@@ -44,15 +43,7 @@ class CreateJSRoutesCommand extends Command
 	 */
 	public function handle()
 	{
-		$routes = collect(
-			Route::getRoutes()->getRoutesByName()
-		)->filter(function ($route, $key) {
-			return $this->includeRoute($route, $key);
-		})->map(function ($route) {
-			return [
-				'uri' => $route->uri
-			];
-		});
+		$routes = $this->getRoutesArray();
 
 		$jsonFlags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
 
@@ -70,6 +61,19 @@ class CreateJSRoutesCommand extends Command
 		}
 	}
 
+	public function getRoutesArray(): array
+	{
+		return collect(
+			app('router')->getRoutes()->getRoutesByName()
+		)->filter(function ($route, $key) {
+			return $this->includeRoute($route, $key);
+		})->map(function ($route) {
+			return [
+				'uri' => $route->uri
+			];
+		})->toArray();
+	}
+
 	public function createFile($fileName, $contents)
 	{
 		if (
@@ -78,8 +82,7 @@ class CreateJSRoutesCommand extends Command
 		) {
 			if (
 				!$this->confirm(
-					"The [$fileName] file already exists. " .
-						'Do you want to replace it?'
+					"The [$fileName] file already exists. Do you want to replace it?"
 				)
 			) {
 				$this->error('Error');

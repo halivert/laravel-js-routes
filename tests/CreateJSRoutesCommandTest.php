@@ -2,6 +2,7 @@
 
 namespace Halivert\JSRoutes\Tests;
 
+use Halivert\JSRoutes\Console\CreateJSRoutesCommand;
 use Illuminate\Routing\Router;
 use Orchestra\Testbench\TestCase;
 
