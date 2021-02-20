@@ -1,4 +1,5 @@
 ---
+title: "Rutas Laravel en JS"
 description: >-
     Paquete composer para utilizar rutas de Laravel en archivos JS con
     un comando.
@@ -66,4 +67,5 @@ También puedes utilizar las opciones de comando
 -   `f|force`: Sobreescribe el achivo si ya existe.
 
 ## Licencia
+
 [MIT](https://github.com/halivert/laravel-js-routes/blob/master/LICENSE)
