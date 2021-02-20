@@ -1,5 +1,7 @@
 ---
-layout: repo
+description: >-
+    Paquete composer para utilizar rutas de Laravel en archivos JS con
+    un comando.
 ---
 
 ## Inicio rápido

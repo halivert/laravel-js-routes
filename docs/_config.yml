@@ -1,5 +1,10 @@
-assets: "https://halivert.dev/assets"
+remote_theme: halivert/halivert.github.io@main
+
 title: "Rutas Laravel en JS"
-description: >-
-    Paquete composer para utilizar rutas de Laravel en archivos JS con
-    un comando.
+
+defaults:
+  -
+    values:
+      layout: "repo"
+      has_instant_view: true
+
