@@ -102,6 +102,9 @@ class CreateJSRoutesCommand extends Command
 			return true;
 		}
 
+		if(!empty($include))
+		    return false;
+
 		$exclude = $this->getOption('exclude');
 
 		if (in_array($routeName, $exclude)) {
@@ -134,6 +137,10 @@ class CreateJSRoutesCommand extends Command
 			return explode(',', $this->option($key));
 		}
 
-		return config("app.jsroutes.$key", $default);
+		//Retro compatibility
+        if(empty(config('jsroutes')))
+            return config("app.jsroutes.$key", $default);
+        else
+            return config("jsroutes.$key", $default);
 	}
 }
