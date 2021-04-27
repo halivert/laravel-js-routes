@@ -3,6 +3,7 @@
 namespace Halivert\JSRoutes\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class CreateJSRoutesCommand extends Command
 {
@@ -96,26 +97,31 @@ class CreateJSRoutesCommand extends Command
 
 	private function includeRoute($route, $routeName)
 	{
-		$include = $this->getOption('include');
+        $include = $this->getOption('include');
 
-		if (in_array($routeName, $include)) {
-			return true;
-		}
+        if(!empty($include)) {
+            return Str::is($include, $routeName);
+        }
 
-		$exclude = $this->getOption('exclude');
+        $exclude = $this->getOption('exclude');
 
-		if (in_array($routeName, $exclude)) {
-			return false;
-		}
+        if(!empty($exclude)) {
+            return !Str::is($exclude, $routeName);
+        };
 
-		$methods = $this->getOption('methods');
+        $methods = $this->getOption('methods');
 
-		$valid = empty($methods);
-		foreach ($methods as $method) {
-			$valid |= in_array($method, $route->methods);
-		}
+        if(!empty($methods)) {
+            foreach($route->methods as $method) {
+                if(Str::is($methods, $method)) {
+                    return true;
+                }
+            }
 
-		return $valid;
+            return false;
+        }
+
+        return true;
 	}
 
 	protected function getJSPath($fileName)
@@ -134,6 +140,10 @@ class CreateJSRoutesCommand extends Command
 			return explode(',', $this->option($key));
 		}
 
-		return config("app.jsroutes.$key", $default);
+		//Retro compatibility
+        if(empty(config('jsroutes')))
+            return config("app.jsroutes.$key", $default);
+        else
+            return config("jsroutes.$key", $default);
 	}
 }
