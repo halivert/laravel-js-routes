@@ -99,15 +99,15 @@ class CreateJSRoutesCommand extends Command
     {
         $include = $this->getOption('include');
 
-        if (!empty($include)) {
-            return Str::is($include, $routeName);
+        if (!empty($include) and Str::is($include, $routeName)) {
+            return true;
         }
 
         $exclude = $this->getOption('exclude');
 
-        if (!empty($exclude)) {
-            return !Str::is($exclude, $routeName);
-        };
+        if (!empty($exclude) and Str::is($exclude, $routeName)) {
+            return false;
+        }
 
         $methods = $this->getOption('methods');
 
