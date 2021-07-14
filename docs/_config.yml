@@ -1,8 +1,9 @@
 remote_theme: halivert/halivert.github.io@main
 
 title: "Rutas Laravel en JS"
+baseurl: ""
 
 defaults:
     - values:
-          layout: "repo"
-          has_instant_view: true
+        layout: "repo"
+        has_instant_view: true
