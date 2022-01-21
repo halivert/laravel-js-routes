@@ -25,7 +25,8 @@
         }
     },
     "require": {
-        "laravel/framework": ">= 6.20.14 |>= 7.30.4|>= 8.40.0"
+        "illuminate/routing": "^9.0",
+        "illuminate/support": "^9.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0"
