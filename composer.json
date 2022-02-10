@@ -29,7 +29,7 @@
         "illuminate/support": "^9.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0"
+        "orchestra/testbench": "^7.0"
     },
     "config": {
         "sort-packages": true
