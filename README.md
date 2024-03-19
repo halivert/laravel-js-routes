@@ -1,5 +1,12 @@
 # Laravel JS routes
 
+> [!NOTE]
+> This package is not maintained anymore, I suggest you to use
+> [Ziggy](https://github.com/tighten/ziggy) since is a bigger one, with more
+> support.
+>
+> Anyways, thank you so much for your support :smile:
+
 Command for use Laravel routes in JS
 
 ## Usage:
